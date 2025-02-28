@@ -12,3 +12,4 @@ The app currently doesn't support tasks that begin in a day and finish on anothe
 
 Honestly, this project would be better suited to a database, since that would take care of a lot of type checking and formatting that I had to take into consideration, but it was meant to be a practice exercise.
 
+To use, either download latest release or download the project and install the requirements.txt
