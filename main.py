@@ -1,13 +1,12 @@
-import copy
-import sys
-import csvmanager
-from datetime import datetime as dt
 from PyQt5.QtCore import QDate
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QTableWidgetItem, QPushButton
-from dialogs import AddTaskType, DeleteTaskType
 from PyQt5.uic import loadUi
+from datetime import datetime as dt
 
-from tasksmanagers import TasksManager, TypesManager
+from dialogs import AddTaskType, DeleteTaskType
+import copy, sys
+
+from tasks_managers import TasksManager, TypesManager
 
 class GUI(QMainWindow):
     def __init__(self):
@@ -85,7 +84,7 @@ class GUI(QMainWindow):
             row_idx = selected_rows.pop()
             self.done_tasks_table.removeRow(row_idx)
             del self.tasks_manager.done_tasks[row_idx]
-            csvmanager.rewrite_csv_done_tasks(self.tasks_manager.done_tasks)
+            csv_manager.rewrite_csv_done_tasks(self.tasks_manager.done_tasks)
 
     def add_type_of_task(self):
         dialog = AddTaskType(self, self.types_manager.types_index, self.types_manager.tasks_types)
@@ -107,7 +106,7 @@ class GUI(QMainWindow):
                 QMessageBox.warning(self, "Warning", f"Warning. Can't delete the type because {tasks_with_type} tasks use it")
                 return
 
-            if csvmanager.delete_task_type_by_index(str(type_index)):
+            if csv_manager.delete_task_type_by_index(str(type_index)):
                 self.comBox_tasks_types.removeItem(dialog.return_comBox_index)
 
                 for i, task in enumerate(self.types_manager.tasks_types):
